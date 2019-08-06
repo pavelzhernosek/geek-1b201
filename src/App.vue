@@ -8,6 +8,20 @@
         </v-flex>
       </v-layout>
     </v-content>
+    <template v-if="error">
+      <v-snackbar
+        color="error"
+        :multi-line="true"
+        :timeout="5000"
+        @input="closeError"
+        :value="true"
+      >
+        {{ error }}
+        <v-btn dark text @click="closeError">
+          Close
+        </v-btn>
+      </v-snackbar>
+    </template>
   </v-app>
 </template>
 
@@ -20,7 +34,17 @@ export default {
   },
   data: () => ({
     //
-  })
+  }),
+  computed: {
+    error() {
+      return this.$store.getters.error;
+    }
+  },
+  methods: {
+    closeError() {
+      this.$store.dispatch("clearError");
+    }
+  }
 };
 </script>
 <style>

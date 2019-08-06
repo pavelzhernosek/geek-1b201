@@ -33,7 +33,11 @@
               ></v-text-field>
             </v-form>
             <br />
-            <v-btn @click="registration" :disabled="!valid">
+            <v-btn
+              :loading="loading"
+              @click="registration"
+              :disabled="!valid || loading"
+            >
               Create account
             </v-btn>
           </v-flex>
@@ -67,6 +71,11 @@ export default {
       ]
     };
   },
+  computed: {
+    loading() {
+      return this.$store.getters.loading;
+    }
+  },
   methods: {
     registration() {
       if (this.$refs.form.validate()) {
@@ -74,7 +83,12 @@ export default {
           email: this.email,
           password: this.password
         };
-        console.log(user);
+        this.$store
+          .dispatch("register", user)
+          .then(() => {
+            this.$router.push("/");
+          })
+          .catch(() => {});
       }
     }
   },

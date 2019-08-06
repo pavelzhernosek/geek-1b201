@@ -30,7 +30,11 @@
               ></v-text-field>
             </v-form>
             <br />
-            <v-btn @click="login" :disabled="!valid">
+            <v-btn
+              :loading="loading"
+              @click="login"
+              :disabled="!valid || loading"
+            >
               Login
             </v-btn>
           </v-flex>
@@ -59,6 +63,11 @@ export default {
       ]
     };
   },
+  computed: {
+    loading() {
+      return this.$store.getters.loading;
+    }
+  },
   methods: {
     login() {
       if (this.$refs.form.validate()) {
@@ -66,7 +75,12 @@ export default {
           email: this.email,
           password: this.password
         };
-        console.log(user);
+        this.$store
+          .dispatch("login", user)
+          .then(() => {
+            this.$router.push("./");
+          })
+          .catch(() => {});
       }
     }
   },

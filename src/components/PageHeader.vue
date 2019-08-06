@@ -10,10 +10,10 @@
       <v-spacer></v-spacer>
 
       <template v-if="$vuetify.breakpoint.smAndUp">
-        <v-btn :to="{ name: 'registration' }" icon>
+        <v-btn v-if="!logged" :to="{ name: 'registration' }" icon>
           <v-icon>mdi-account-plus</v-icon>
         </v-btn>
-        <v-btn :to="{ name: 'login' }" icon>
+        <v-btn v-if="!logged" :to="{ name: 'login' }" icon>
           <v-icon>mdi-login-variant</v-icon>
         </v-btn>
       </template>
@@ -29,7 +29,7 @@
       </template>
       <v-divider></v-divider>
 
-      <v-list-item :to="{ name: 'login' }">
+      <v-list-item v-if="!logged" :to="{ name: 'login' }">
         <v-list-item-action>
           <v-icon>mdi-login-variant</v-icon>
         </v-list-item-action>
@@ -38,7 +38,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item :to="{ name: 'registration' }">
+      <v-list-item v-if="!logged" :to="{ name: 'registration' }">
         <v-list-item-action>
           <v-icon>mdi-account-plus</v-icon>
         </v-list-item-action>
@@ -46,10 +46,9 @@
           <v-list-item-title>Sign up</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-
+      <v-divider></v-divider>
       <template v-slot:append>
-        <v-divider></v-divider>
-        <v-list-item @click="logout" text v-if="">
+        <v-list-item @click="logout" text v-if="logged">
           <v-list-item-action>
             <v-icon>mdi-logout-variant</v-icon>
           </v-list-item-action>
@@ -71,14 +70,13 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logout");
-
       this.$router.push({
         name: "login"
       });
     }
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(["user", "logged"])
   }
 };
 </script>
