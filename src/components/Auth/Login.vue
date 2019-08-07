@@ -23,7 +23,6 @@
                 prepend-icon="mdi-key"
                 name="password"
                 label="Password"
-                :counter="6"
                 :rules="passwordRules"
                 type="password"
                 v-model="password"
@@ -56,11 +55,7 @@ export default {
         v => !!v || "E-mail is required",
         v => /.+@.+\..+/.test(v) || "E-mail must be valid"
       ],
-      passwordRules: [
-        v => !!v || "Password is required",
-        v =>
-          (v && v.length >= 6) || "Password must be equal or than 6 characters"
-      ]
+      passwordRules: [v => !!v || "Password is required"]
     };
   },
   computed: {

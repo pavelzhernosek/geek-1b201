@@ -32,9 +32,6 @@ export default {
   components: {
     PageHeader
   },
-  data: () => ({
-    //
-  }),
   computed: {
     error() {
       return this.$store.getters.error;
@@ -51,5 +48,11 @@ export default {
 .login-field,
 .register-field {
   margin-top: 120px;
+}
+@media screen and (max-width: 500px) {
+  .login-field,
+  .register-field {
+    margin-top: 60px;
+  }
 }
 </style>

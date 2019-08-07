@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <router-link tag="span" to="/" class="pointer">
         <span class="title ml-3 mr-5 headline text-uppercase"
-          >geek<span class="font-weight-light">solutions</span></span
+          >show<span class="font-weight-light">users</span></span
         ></router-link
       >
       <v-spacer></v-spacer>
@@ -16,19 +16,12 @@
         <v-btn v-if="!logged" :to="{ name: 'login' }" icon>
           <v-icon>mdi-login-variant</v-icon>
         </v-btn>
+        <v-btn v-if="logged" @click="logout" icon>
+          <v-icon>mdi-logout-variant</v-icon>
+        </v-btn>
       </template>
     </v-app-bar>
     <v-navigation-drawer temporary app v-model="drawer">
-      <template v-slot:prepend>
-        <v-list-item two-line class="pt-2 pb-2 pointer">
-          <v-list-item-content>
-            <v-list-item-title>MENU</v-list-item-title>
-            <v-list-item-subtitle></v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
-      <v-divider></v-divider>
-
       <v-list-item v-if="!logged" :to="{ name: 'login' }">
         <v-list-item-action>
           <v-icon>mdi-login-variant</v-icon>
